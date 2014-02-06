@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p><h3><%= @post.title %></h3>
+  
+</p>
+
+<p>
+  <%= image_tag @post.image, width: "450", class: "imgmeme" %>
+</p>
+
+
+<h2>Comments</h2>
+<% @post.comments.each do |comment| %>
+<p>Author:<%= comment.author %></p>
+<p>Comment:<%= comment.commenttext %></p>
+<% end %>
+
+
+<h2>Add a Comment</h2>
+<%= form_for([@post,@post.comments.build]) do |f| %>
+	<p>Author: <%= f.text_field :author %></p>
+	<p>Comment: <%= f.text_area :commenttext %></p>
+	<p><%= f.submit %></p>
+<% end %>
+
+<% if user_signed_in? %>
+<p><%= link_to 'Edit', edit_post_path(@post) %></p>
+<% end  %>
+<p><%= link_to 'Back', posts_path %></p>
